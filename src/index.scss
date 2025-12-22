@@ -1,0 +1,48 @@
+.web-fetch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &--grow {
+      flex: 1 1 220px;
+    }
+  }
+
+  &__label {
+    font-size: 12px;
+    color: var(--b3-font-color3);
+  }
+
+  &__notebook {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__status {
+    min-height: 18px;
+    font-size: 12px;
+    color: var(--b3-font-color2);
+
+    &--error {
+      color: var(--b3-font-color12, #d14343);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
