@@ -1,7 +1,7 @@
 {
-  "name": "plugin-sample",
-  "version": "0.4.3",
-  "description": "This is a sample plugin for Siyuan (https://b3log.org/siyuan)",
+  "name": "siyuan-web-fetch",
+  "version": "0.0.1",
+  "description": "Fetch web pages and create notes in SiYuan",
   "main": ".src/index.js",
   "scripts": {
     "lint": "eslint . --fix --cache",
@@ -9,7 +9,7 @@
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "author": "Vanessa",
+  "author": "BryceWG",
   "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "8.40.0",
