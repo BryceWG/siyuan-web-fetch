@@ -140,29 +140,33 @@ export default class WebFetchPlugin extends Plugin {
         const dialog = new Dialog({
             title: this.i18n.panelTitle,
             content: `<div class="web-fetch">
-    <div class="web-fetch__field">
-        <div class="web-fetch__label">${this.i18n.panelUrlLabel}</div>
-        <input id="web-fetch-url" class="b3-text-field fn__block" placeholder="${this.i18n.panelUrlPlaceholder}">
-    </div>
-    <div class="web-fetch__row">
-        <div class="web-fetch__field web-fetch__field--grow">
-            <div class="web-fetch__label">${this.i18n.panelServiceLabel}</div>
-            <select id="web-fetch-service" class="b3-select fn__block">
-                <option value="firecrawl">${this.i18n.serviceFirecrawl}</option>
-            </select>
+    <div class="web-fetch__card">
+        <div class="web-fetch__field">
+            <div class="web-fetch__label">${this.i18n.panelUrlLabel}</div>
+            <input id="web-fetch-url" class="b3-text-field fn__block web-fetch__control" placeholder="${this.i18n.panelUrlPlaceholder}">
         </div>
-        <div class="web-fetch__field web-fetch__field--grow">
-            <div class="web-fetch__label">${this.i18n.panelNotebookLabel}</div>
-            <div class="web-fetch__notebook">
-                <select id="web-fetch-notebook" class="b3-select fn__block"></select>
-                <button id="web-fetch-refresh" class="b3-button b3-button--outline">${this.i18n.refreshNotebooks}</button>
+        <div class="web-fetch__grid">
+            <div class="web-fetch__field">
+                <div class="web-fetch__label">${this.i18n.panelServiceLabel}</div>
+                <select id="web-fetch-service" class="b3-select fn__block web-fetch__control">
+                    <option value="firecrawl">${this.i18n.serviceFirecrawl}</option>
+                </select>
+            </div>
+            <div class="web-fetch__field">
+                <div class="web-fetch__label">${this.i18n.panelNotebookLabel}</div>
+                <div class="web-fetch__notebook">
+                    <select id="web-fetch-notebook" class="b3-select fn__block web-fetch__control"></select>
+                    <button id="web-fetch-refresh" class="b3-button b3-button--outline web-fetch__refresh">${this.i18n.refreshNotebooks}</button>
+                </div>
             </div>
         </div>
     </div>
-    <div id="web-fetch-status" class="web-fetch__status"></div>
-    <div class="web-fetch__actions">
-        <button id="web-fetch-cancel" class="b3-button b3-button--cancel">${this.i18n.cancel}</button>
-        <button id="web-fetch-submit" class="b3-button b3-button--text">${this.i18n.panelFetchButton}</button>
+    <div class="web-fetch__footer">
+        <div id="web-fetch-status" class="web-fetch__status"></div>
+        <div class="web-fetch__actions">
+            <button id="web-fetch-cancel" class="b3-button b3-button--cancel">${this.i18n.cancel}</button>
+            <button id="web-fetch-submit" class="b3-button b3-button--text">${this.i18n.panelFetchButton}</button>
+        </div>
     </div>
 </div>`,
             width: this.isMobile ? "92vw" : "520px",
