@@ -2,27 +2,15 @@
   "name": "siyuan-web-fetch",
   "author": "BryceWG",
   "url": "https://github.com/BryceWG/siyuan-web-fetch",
-  "version": "0.0.3",
-  "minAppVersion": "3.0.0",
+  "version": "0.0.4",
+  "minAppVersion": "3.3.0",
   "backends": [
-    "windows",
-    "linux",
-    "darwin",
-    "ios",
-    "android",
-    "harmony",
-    "docker",
     "all"
   ],
   "frontends": [
-    "desktop",
-    "mobile",
-    "browser-desktop",
-    "browser-mobile",
-    "desktop-window",
     "all"
   ],
-  "disabledInPublish": false,
+  "disabledInPublish": true,
   "displayName": {
     "default": "SiYuan Web Fetch",
     "zh_CN": "网页抓取"
@@ -34,18 +22,5 @@
   "readme": {
     "default": "README.md",
     "zh_CN": "README_zh_CN.md"
-  },
-  "funding": {
-    "openCollective": "",
-    "patreon": "",
-    "github": "",
-    "custom": [
-      "https://ld246.com/sponsor"
-    ]
-  },
-  "keywords": [
-    "开发者参考",
-    "developer reference",
-    "示例插件"
-  ]
+  }
 }

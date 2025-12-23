@@ -52,6 +52,7 @@ export default class WebFetchPlugin extends Plugin {
         this.isMobile = ["mobile", "browser-mobile"].includes(getFrontend());
         this.addCommand({
             langKey: "commandOpenPanel",
+            hotkey: "",
             callback: () => {
                 void this.openFetchDialog();
             },
@@ -69,6 +70,10 @@ export default class WebFetchPlugin extends Plugin {
             },
         });
         await this.setupSettingsUI();
+    }
+
+    async uninstall() {
+        await this.removeData(STORAGE_NAME);
     }
 
     private async ensureSettings() {
