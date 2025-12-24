@@ -8,6 +8,7 @@ import {
     showMessage,
 } from "siyuan";
 import "./index.scss";
+import {scrapeFirecrawl} from "./services/firecrawl";
 
 type FetchService = "firecrawl";
 
@@ -21,18 +22,6 @@ interface NotebookInfo {
     id: string;
     name: string;
     closed?: boolean;
-}
-
-interface FirecrawlScrapeResponse {
-    success: boolean;
-    data?: {
-        markdown?: string;
-        metadata?: {
-            title?: string;
-            sourceURL?: string;
-        };
-    };
-    error?: string;
 }
 
 const STORAGE_NAME = "web-fetch-settings";
@@ -259,7 +248,7 @@ export default class WebFetchPlugin extends Plugin {
             updateStatus(this.i18n.statusFetching);
 
             try {
-                const scrape = await this.scrapeFirecrawl(
+                const scrape = await scrapeFirecrawl(
                     url,
                     this.settings.firecrawlApiKey,
                 );
@@ -336,35 +325,6 @@ export default class WebFetchPlugin extends Plugin {
         if (selectedId) {
             select.value = selectedId;
         }
-    }
-
-    private async scrapeFirecrawl(url: string, apiKey: string) {
-        const response = await fetch("https://api.firecrawl.dev/v2/scrape", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${apiKey}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                url,
-                formats: ["markdown"],
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`Firecrawl ${response.status}`);
-        }
-
-        const payload = (await response.json()) as FirecrawlScrapeResponse;
-        if (!payload.success || !payload.data) {
-            throw new Error(payload.error || "Firecrawl error");
-        }
-
-        const title = payload.data.metadata?.title?.trim() || url;
-        const sourceUrl = payload.data.metadata?.sourceURL || url;
-        const markdown = payload.data.markdown?.trim() || "";
-
-        return {title, sourceUrl, markdown};
     }
 
     private buildMarkdown(title: string, sourceUrl: string, body: string) {
