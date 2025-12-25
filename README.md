@@ -2,11 +2,11 @@
 
 # SiYuan Web Fetch
 
-Fetch web pages with Firecrawl and create SiYuan notes from the returned Markdown.
+Fetch web pages with Firecrawl or Jina Reader and create SiYuan notes from the returned Markdown.
 
 ## Features
 
-- Fetch a URL and convert it to Markdown via Firecrawl
+- Fetch a URL and convert it to Markdown via Firecrawl or Jina Reader
 - Create a new note in a selected notebook
 - Use page title as the note title
 - Insert the source URL at the top of the note
@@ -15,17 +15,18 @@ Fetch web pages with Firecrawl and create SiYuan notes from the returned Markdow
 ## Requirements
 
 - SiYuan 3.5.0+
-- A Firecrawl API key
+- A Firecrawl API key (only for Firecrawl)
 
 ## Usage
 
 1. Open plugin settings and set:
-   - Firecrawl API key
+   - Firecrawl API key (optional, for Firecrawl)
+   - Default service
    - Default notebook (optional)
 2. Open the panel:
    - Command palette: `Web Fetch: Capture URL`
    - Or click the top-right toolbar icon
-3. Enter the URL, pick a notebook, and click Fetch
+3. Enter the URL, pick a service and notebook, and click Fetch
 
 ## Development
 
@@ -46,5 +47,5 @@ This generates `package.zip` for publishing.
 
 ## Notes
 
-- Currently only Firecrawl is supported as a fetch service.
+- Supported services: Firecrawl and Jina Reader.
 - The created note starts with a `Source: <url>` line, followed by the Markdown content.

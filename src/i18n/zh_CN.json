@@ -9,8 +9,10 @@
   "refreshNotebooks": "刷新",
   "cancel": "取消",
   "settingsApiKeyTitle": "Firecrawl API Key",
-  "settingsApiKeyDescription": "用于调用 Firecrawl /scrape 接口",
+  "settingsApiKeyDescription": "用于调用 Firecrawl /scrape 接口（仅 Firecrawl）",
   "settingsApiKeyPlaceholder": "fc-...",
+  "settingsDefaultServiceTitle": "默认服务",
+  "settingsDefaultServiceDescription": "面板打开时的默认选项",
   "settingsDefaultNotebookTitle": "默认笔记本",
   "settingsDefaultNotebookDescription": "面板未选择时使用",
   "settingsAutoOpenNoteTitle": "自动打开笔记",
@@ -25,6 +27,7 @@
   "statusCreating": "正在创建笔记…",
   "statusDone": "完成",
   "serviceFirecrawl": "Firecrawl",
+  "serviceJina": "Jina Reader",
   "sourceLabel": "来源",
   "selectNotebookPlaceholder": "选择笔记本"
 }

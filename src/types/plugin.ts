@@ -1,4 +1,4 @@
-export type FetchService = "firecrawl";
+export type FetchService = "firecrawl" | "jina";
 
 export interface PluginSettings {
     firecrawlApiKey: string;

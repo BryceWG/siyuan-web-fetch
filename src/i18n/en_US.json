@@ -9,8 +9,10 @@
   "refreshNotebooks": "Refresh",
   "cancel": "Cancel",
   "settingsApiKeyTitle": "Firecrawl API Key",
-  "settingsApiKeyDescription": "Used to access Firecrawl /scrape",
+  "settingsApiKeyDescription": "Used to access Firecrawl /scrape (Firecrawl only)",
   "settingsApiKeyPlaceholder": "fc-...",
+  "settingsDefaultServiceTitle": "Default service",
+  "settingsDefaultServiceDescription": "Used as the default option in the panel",
   "settingsDefaultNotebookTitle": "Default notebook",
   "settingsDefaultNotebookDescription": "Used when no notebook is selected in the panel",
   "settingsAutoOpenNoteTitle": "Auto-open note",
@@ -25,6 +27,7 @@
   "statusCreating": "Creating note...",
   "statusDone": "Done",
   "serviceFirecrawl": "Firecrawl",
+  "serviceJina": "Jina Reader",
   "sourceLabel": "Source",
   "selectNotebookPlaceholder": "Select notebook"
 }

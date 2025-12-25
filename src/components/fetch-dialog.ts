@@ -1,5 +1,6 @@
 import {Dialog, openTab, showMessage} from "siyuan";
 import {scrapeFirecrawl} from "../services/firecrawl";
+import {scrapeJina} from "../services/jina";
 import {NotebookInfo, PluginSettings, WebFetchI18n} from "../types/plugin";
 import {buildMarkdown} from "../utils/markdown";
 import {populateNotebookSelect} from "../utils/notebooks";
@@ -34,6 +35,7 @@ export async function openFetchDialog(context: FetchDialogContext) {
                 <div class="web-fetch__label">${context.i18n.panelServiceLabel}</div>
                 <select id="web-fetch-service" class="b3-select fn__block web-fetch__control">
                     <option value="firecrawl">${context.i18n.serviceFirecrawl}</option>
+                    <option value="jina">${context.i18n.serviceJina}</option>
                 </select>
             </div>
             <div class="web-fetch__field">
@@ -126,11 +128,11 @@ export async function openFetchDialog(context: FetchDialogContext) {
             updateStatus(context.i18n.errorMissingNotebook, true);
             return;
         }
-        if (!context.settings.firecrawlApiKey) {
+        if (service === "firecrawl" && !context.settings.firecrawlApiKey) {
             updateStatus(context.i18n.errorMissingApiKey, true);
             return;
         }
-        if (service !== "firecrawl") {
+        if (service !== "firecrawl" && service !== "jina") {
             updateStatus(context.i18n.errorFetchFailed, true);
             return;
         }
@@ -149,10 +151,13 @@ export async function openFetchDialog(context: FetchDialogContext) {
             );
             dialog.destroy();
 
-            const scrape = await scrapeFirecrawl(
-                url,
-                context.settings.firecrawlApiKey,
-            );
+            const scrape =
+                service === "firecrawl"
+                    ? await scrapeFirecrawl(
+                          url,
+                          context.settings.firecrawlApiKey,
+                      )
+                    : await scrapeJina(url);
             updateStatus(context.i18n.statusCreating);
 
             const markdown = buildMarkdown(

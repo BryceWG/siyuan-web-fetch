@@ -1,5 +1,10 @@
 import {Setting, showMessage} from "siyuan";
-import {NotebookInfo, PluginSettings, WebFetchI18n} from "../types/plugin";
+import {
+    FetchService,
+    NotebookInfo,
+    PluginSettings,
+    WebFetchI18n,
+} from "../types/plugin";
 import {populateNotebookSelect} from "../utils/notebooks";
 
 interface SettingsPanelContext {
@@ -19,6 +24,17 @@ export async function createSettingsPanel(
     apiKeyInput.autocomplete = "new-password";
     apiKeyInput.placeholder = context.i18n.settingsApiKeyPlaceholder;
     apiKeyInput.value = context.settings.firecrawlApiKey;
+
+    const serviceSelect = document.createElement("select");
+    serviceSelect.className = "b3-select fn__block";
+    const firecrawlOption = document.createElement("option");
+    firecrawlOption.value = "firecrawl";
+    firecrawlOption.textContent = context.i18n.serviceFirecrawl;
+    const jinaOption = document.createElement("option");
+    jinaOption.value = "jina";
+    jinaOption.textContent = context.i18n.serviceJina;
+    serviceSelect.append(firecrawlOption, jinaOption);
+    serviceSelect.value = context.settings.defaultService;
 
     const notebookSelect = document.createElement("select");
     notebookSelect.className = "b3-select fn__block";
@@ -48,7 +64,7 @@ export async function createSettingsPanel(
                 ...context.settings,
                 firecrawlApiKey: apiKeyInput.value.trim(),
                 defaultNotebookId: notebookSelect.value,
-                defaultService: "firecrawl",
+                defaultService: serviceSelect.value as FetchService,
                 autoOpenNote: autoOpenNoteCheckbox.checked,
             };
             context.settings = nextSettings;
@@ -61,6 +77,12 @@ export async function createSettingsPanel(
         title: context.i18n.settingsApiKeyTitle,
         description: context.i18n.settingsApiKeyDescription,
         createActionElement: () => apiKeyInput,
+    });
+
+    setting.addItem({
+        title: context.i18n.settingsDefaultServiceTitle,
+        description: context.i18n.settingsDefaultServiceDescription,
+        createActionElement: () => serviceSelect,
     });
 
     setting.addItem({
