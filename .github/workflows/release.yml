@@ -1,0 +1,80 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - plugin.json
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check plugin.json version change
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          before="${{ github.event.before }}"
+          after="${{ github.sha }}"
+
+          get_version() {
+            node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version"
+          }
+
+          after_version="$(git show "$after:plugin.json" | get_version)"
+
+          changed=true
+          if [ "$before" != "0000000000000000000000000000000000000000" ]; then
+            if git cat-file -e "$before:plugin.json" 2>/dev/null; then
+              before_version="$(git show "$before:plugin.json" | get_version)"
+              if [ "$before_version" = "$after_version" ]; then
+                changed=false
+              fi
+              echo "Previous version: $before_version"
+            fi
+          fi
+
+          echo "Current version: $after_version"
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          echo "version=$after_version" >> "$GITHUB_OUTPUT"
+
+      - name: Setup pnpm
+        if: steps.version.outputs.changed == 'true'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        if: steps.version.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        if: steps.version.outputs.changed == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        if: steps.version.outputs.changed == 'true'
+        run: pnpm run build
+
+      - name: Create GitHub release
+        if: steps.version.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          files: |
+            package.zip
