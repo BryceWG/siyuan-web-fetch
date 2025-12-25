@@ -39,6 +39,7 @@ export async function createSettingsPanel(
 
     const autoOpenNoteCheckbox = document.createElement("input");
     autoOpenNoteCheckbox.type = "checkbox";
+    autoOpenNoteCheckbox.className = "b3-switch fn__flex-center";
     autoOpenNoteCheckbox.checked = context.settings.autoOpenNote;
 
     const setting = new Setting({
