@@ -13,6 +13,8 @@
   "settingsApiKeyPlaceholder": "fc-...",
   "settingsDefaultNotebookTitle": "Default notebook",
   "settingsDefaultNotebookDescription": "Used when no notebook is selected in the panel",
+  "settingsAutoOpenNoteTitle": "Auto-open note",
+  "settingsAutoOpenNoteDescription": "Automatically open the newly created note after fetching",
   "settingsSaved": "Settings saved",
   "errorMissingUrl": "Please enter a URL",
   "errorMissingApiKey": "Please set your Firecrawl API key in plugin settings",

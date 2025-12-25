@@ -140,6 +140,15 @@ export async function openFetchDialog(context: FetchDialogContext) {
         updateStatus(context.i18n.statusFetching);
 
         try {
+            // 显示提示并关闭面板，让抓取在后台进行
+            const autoOpenNote = context.settings.autoOpenNote;
+            showMessage(
+                autoOpenNote
+                    ? "抓取已开始，完成后将自动打开笔记"
+                    : "抓取已开始",
+            );
+            dialog.destroy();
+
             const scrape = await scrapeFirecrawl(
                 url,
                 context.settings.firecrawlApiKey,
@@ -160,7 +169,7 @@ export async function openFetchDialog(context: FetchDialogContext) {
 
             updateStatus(context.i18n.statusDone);
             showMessage(context.i18n.statusDone);
-            if (docId) {
+            if (docId && autoOpenNote) {
                 openTab({
                     app: context.app,
                     doc: {id: docId},

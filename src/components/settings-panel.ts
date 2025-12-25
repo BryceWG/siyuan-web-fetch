@@ -37,6 +37,10 @@ export async function createSettingsPanel(
         context.i18n.selectNotebookPlaceholder,
     );
 
+    const autoOpenNoteCheckbox = document.createElement("input");
+    autoOpenNoteCheckbox.type = "checkbox";
+    autoOpenNoteCheckbox.checked = context.settings.autoOpenNote;
+
     const setting = new Setting({
         confirmCallback: async () => {
             const nextSettings: PluginSettings = {
@@ -44,6 +48,7 @@ export async function createSettingsPanel(
                 firecrawlApiKey: apiKeyInput.value.trim(),
                 defaultNotebookId: notebookSelect.value,
                 defaultService: "firecrawl",
+                autoOpenNote: autoOpenNoteCheckbox.checked,
             };
             context.settings = nextSettings;
             await context.onSave(nextSettings);
@@ -61,6 +66,12 @@ export async function createSettingsPanel(
         title: context.i18n.settingsDefaultNotebookTitle,
         description: context.i18n.settingsDefaultNotebookDescription,
         createActionElement: () => notebookSelect,
+    });
+
+    setting.addItem({
+        title: context.i18n.settingsAutoOpenNoteTitle,
+        description: context.i18n.settingsAutoOpenNoteDescription,
+        createActionElement: () => autoOpenNoteCheckbox,
     });
 
     return setting;

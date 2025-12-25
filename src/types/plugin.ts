@@ -4,6 +4,7 @@ export interface PluginSettings {
     firecrawlApiKey: string;
     defaultNotebookId: string;
     defaultService: FetchService;
+    autoOpenNote: boolean;
 }
 
 export interface NotebookInfo {

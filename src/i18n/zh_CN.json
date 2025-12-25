@@ -13,6 +13,8 @@
   "settingsApiKeyPlaceholder": "fc-...",
   "settingsDefaultNotebookTitle": "默认笔记本",
   "settingsDefaultNotebookDescription": "面板未选择时使用",
+  "settingsAutoOpenNoteTitle": "自动打开笔记",
+  "settingsAutoOpenNoteDescription": "抓取完成后自动打开新创建的笔记",
   "settingsSaved": "设置已保存",
   "errorMissingUrl": "请输入网址",
   "errorMissingApiKey": "请在插件设置中填写 Firecrawl API Key",

@@ -45,10 +45,7 @@ export default class WebFetchPlugin extends Plugin {
         if (!this.settingsLoaded) {
             this.settingsLoaded = (async () => {
                 const stored = await this.loadData(STORAGE_NAME);
-                this.settings = {
-                    ...DEFAULT_SETTINGS,
-                    ...(stored ?? {}),
-                };
+                this.settings = this.normalizeSettings(stored);
                 this.data[STORAGE_NAME] = {...this.settings};
             })();
         }
@@ -100,7 +97,7 @@ export default class WebFetchPlugin extends Plugin {
         markdown: string,
     ) {
         const safeTitle = sanitizeTitle(title);
-        const data = await postSiyuan<{id?: string; docID?: string}>(
+        const data = await postSiyuan<unknown>(
             "/api/filetree/createDocWithMd",
             {
                 notebook: notebookId,
@@ -108,6 +105,56 @@ export default class WebFetchPlugin extends Plugin {
                 markdown,
             },
         );
-        return data?.id || data?.docID;
+        return this.resolveDocId(data);
+    }
+
+    private normalizeSettings(stored: unknown): PluginSettings {
+        const merged = {
+            ...DEFAULT_SETTINGS,
+            ...(stored ?? {}),
+        } as PluginSettings;
+        const raw = (stored as {autoOpenNote?: unknown} | null)?.autoOpenNote;
+        if (typeof raw === "boolean") {
+            merged.autoOpenNote = raw;
+        } else if (typeof raw === "string") {
+            merged.autoOpenNote = raw === "true";
+        }
+        return merged;
+    }
+
+    private resolveDocId(data: unknown): string | undefined {
+        if (!data) {
+            return undefined;
+        }
+        if (typeof data === "string") {
+            return data;
+        }
+        if (typeof data === "object") {
+            const record = data as {
+                id?: unknown;
+                docID?: unknown;
+                data?: unknown;
+            };
+            if (typeof record.id === "string") {
+                return record.id;
+            }
+            if (typeof record.docID === "string") {
+                return record.docID;
+            }
+            const nested = record.data;
+            if (typeof nested === "string") {
+                return nested;
+            }
+            if (nested && typeof nested === "object") {
+                const nestedRecord = nested as {id?: unknown; docID?: unknown};
+                if (typeof nestedRecord.id === "string") {
+                    return nestedRecord.id;
+                }
+                if (typeof nestedRecord.docID === "string") {
+                    return nestedRecord.docID;
+                }
+            }
+        }
+        return undefined;
     }
 }

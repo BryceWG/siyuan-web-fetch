@@ -6,4 +6,5 @@ export const DEFAULT_SETTINGS: PluginSettings = {
     firecrawlApiKey: "",
     defaultNotebookId: "",
     defaultService: "firecrawl",
+    autoOpenNote: true,
 };
