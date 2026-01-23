@@ -25,6 +25,12 @@ export async function createSettingsPanel(
     apiKeyInput.placeholder = context.i18n.settingsApiKeyPlaceholder;
     apiKeyInput.value = context.settings.firecrawlApiKey;
 
+    const endpointInput = document.createElement("input");
+    endpointInput.className = "b3-text-field fn__block";
+    endpointInput.type = "text";
+    endpointInput.placeholder = context.i18n.settingsFirecrawlEndpointPlaceholder;
+    endpointInput.value = context.settings.firecrawlEndpoint;
+
     const serviceSelect = document.createElement("select");
     serviceSelect.className = "b3-select fn__block";
     const firecrawlOption = document.createElement("option");
@@ -63,6 +69,7 @@ export async function createSettingsPanel(
             const nextSettings: PluginSettings = {
                 ...context.settings,
                 firecrawlApiKey: apiKeyInput.value.trim(),
+                firecrawlEndpoint: endpointInput.value.trim(),
                 defaultNotebookId: notebookSelect.value,
                 defaultService: serviceSelect.value as FetchService,
                 autoOpenNote: autoOpenNoteCheckbox.checked,
@@ -77,6 +84,12 @@ export async function createSettingsPanel(
         title: context.i18n.settingsApiKeyTitle,
         description: context.i18n.settingsApiKeyDescription,
         createActionElement: () => apiKeyInput,
+    });
+
+    setting.addItem({
+        title: context.i18n.settingsFirecrawlEndpointTitle,
+        description: context.i18n.settingsFirecrawlEndpointDescription,
+        createActionElement: () => endpointInput,
     });
 
     setting.addItem({

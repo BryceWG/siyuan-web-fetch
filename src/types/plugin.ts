@@ -2,6 +2,7 @@ export type FetchService = "firecrawl" | "jina";
 
 export interface PluginSettings {
     firecrawlApiKey: string;
+    firecrawlEndpoint: string;
     defaultNotebookId: string;
     defaultService: FetchService;
     autoOpenNote: boolean;

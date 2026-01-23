@@ -128,7 +128,13 @@ export async function openFetchDialog(context: FetchDialogContext) {
             updateStatus(context.i18n.errorMissingNotebook, true);
             return;
         }
-        if (service === "firecrawl" && !context.settings.firecrawlApiKey) {
+        const firecrawlEndpoint = context.settings.firecrawlEndpoint.trim();
+        const isFirecrawlCustomEndpoint = firecrawlEndpoint.length > 0;
+        if (
+            service === "firecrawl" &&
+            !isFirecrawlCustomEndpoint &&
+            !context.settings.firecrawlApiKey
+        ) {
             updateStatus(context.i18n.errorMissingApiKey, true);
             return;
         }
@@ -155,7 +161,10 @@ export async function openFetchDialog(context: FetchDialogContext) {
                 service === "firecrawl"
                     ? await scrapeFirecrawl(
                           url,
-                          context.settings.firecrawlApiKey,
+                          {
+                              apiKey: context.settings.firecrawlApiKey,
+                              endpoint: firecrawlEndpoint,
+                          },
                       )
                     : await scrapeJina(url);
             updateStatus(context.i18n.statusCreating);

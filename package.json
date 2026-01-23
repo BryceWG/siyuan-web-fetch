@@ -1,6 +1,6 @@
 {
   "name": "siyuan-web-fetch",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Fetch web pages and create notes in SiYuan",
   "main": ".src/index.js",
   "scripts": {

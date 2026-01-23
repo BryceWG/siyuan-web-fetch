@@ -15,12 +15,13 @@
 ## 前置条件
 
 - 思源 3.5.0+
-- Firecrawl API Key（仅 Firecrawl 需要）
+- Firecrawl API Key（使用官方 Firecrawl 接口时必填；自部署/自定义 Firecrawl 可选）
 
 ## 使用方法
 
 1. 在插件设置中填写：
-   - Firecrawl API Key（可选，仅 Firecrawl 需要）
+   - Firecrawl Endpoint（可选，用于自部署/自定义 Firecrawl；只需填写服务地址，无需包含 `/v2/scrape`）
+   - Firecrawl API Key（使用官方接口时必填；自定义 Endpoint 时可选）
    - 默认服务
    - 默认笔记本（可选）
 2. 打开操作面板：

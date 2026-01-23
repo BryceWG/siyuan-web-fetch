@@ -15,12 +15,13 @@ Fetch web pages with Firecrawl or Jina Reader and create SiYuan notes from the r
 ## Requirements
 
 - SiYuan 3.5.0+
-- A Firecrawl API key (only for Firecrawl)
+- Firecrawl API key (required for the official Firecrawl endpoint; optional for self-hosted Firecrawl)
 
 ## Usage
 
 1. Open plugin settings and set:
-   - Firecrawl API key (optional, for Firecrawl)
+   - Firecrawl endpoint (optional, for self-hosted Firecrawl; base URL only, no need to include `/v2/scrape`)
+   - Firecrawl API key (required for the official endpoint; optional for a custom endpoint)
    - Default service
    - Default notebook (optional)
 2. Open the panel:
